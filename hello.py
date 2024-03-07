@@ -1,4 +1,4 @@
-from flask import Flask, render_template, session, redirect, url_for, flash
+from flask import Flask, render_template, session, redirect, url_for, flash, request
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from flask_wtf import FlaskForm
@@ -18,7 +18,7 @@ class NameForm(FlaskForm):
     name = StringField('Informe o seu nome:', validators=[DataRequired()])
     sobrenome = StringField('Informe o seu sobrenome:', validators=[DataRequired()])
     inst = StringField('Informe a sua instituição de ensino:', validators=[DataRequired()])
-    #disciplina = SelectField('Informe a sua disciplina:', choices=[('dsw', 'DSWA5'), ('dwb', 'DWBA4'), ('gest', 'Gestão de projetos')], validators=[DataRequired())
+    disciplina = SelectField('Informe a sua disciplina:', choices=[('dsw', 'DSWA5'), ('dwb', 'DWBA4'), ('gest', 'Gestão de projetos')], validators=[DataRequired())
     submit = SubmitField('Submit')
 
 
