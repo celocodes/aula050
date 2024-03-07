@@ -11,9 +11,6 @@ app.config['SECRET_KEY'] = 'hard to guess string'
 bootstrap = Bootstrap(app)
 moment = Moment(app)
 
-url = request.host_url
-ip = request.remote_addr
-
 class NameForm(FlaskForm):
     nome = StringField('Informe o seu nome:', validators=[DataRequired()])
     sobrenome = StringField('Informe o seu sobrenome:', validators=[DataRequired()])
@@ -35,10 +32,12 @@ def internal_server_error(e):
 @app.route('/', methods=['GET', 'POST'])
 def index():
     form = NameForm()
+    url = request.host_url
+    ip = request.remote_addr
     if form.validate_on_submit():
         old_name = session.get('name')
         if old_name is not None and old_name != form.name.data:
             flash('Looks like you have changed your name!')
         session['name'] = form.name.data
         return redirect(url_for('index'))
-    return render_template('index.html', form=form, name=session.get('name'))
+    return render_template('index.html', form=form, ip=ip, url=url, name=session.get('name'))
