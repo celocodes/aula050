@@ -36,6 +36,7 @@ def index():
     url = request.remote_addr
     ip = request.host_url
     form = NameForm()
+    discname = "dswa5"
     if form.validate_on_submit():
         old_name = session.get('name')
         old_lastname = session.get('lastname')
