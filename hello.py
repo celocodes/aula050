@@ -1,4 +1,5 @@
-from flask import Flask, render_template, session, redirect, url_for, flash
+from datetime import datetime
+from flask import Flask, render_template, request, session, redirect, url_for, flash
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from flask_wtf import FlaskForm
@@ -13,9 +14,10 @@ moment = Moment(app)
 
 
 class NameForm(FlaskForm):
-    nome = StringField('Informe o seu nome:', validators=[DataRequired()])
-    sobrenome = StringField('Informe o seu sobrenome:', validators=[DataRequired()])
-    inst = StringField('Informe a sua Instituição de ensino:', validators=[DataRequired()])
+    name = StringField('Informe o seu nome:', validators=[DataRequired()])
+    lastname = StringField('Informe o seu sobrenome:', validators=[DataRequired()])
+    insname = StringField('Informe a sua Insituição de ensino:', validators=[DataRequired()])
+    discname = StringField('Informe a sua disciplina:', validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 
@@ -31,6 +33,8 @@ def internal_server_error(e):
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
+    url = request.remote_addr
+    ip = request.host_url
     form = NameForm()
     if form.validate_on_submit():
         old_name = session.get('name')
@@ -38,4 +42,4 @@ def index():
             flash('Looks like you have changed your name!')
         session['name'] = form.name.data
         return redirect(url_for('index'))
-    return render_template('index.html', form=form, name=session.get('name'))
+    return render_template('index.html', form=form, name=session.get('name'), lastname=session.get('lastname'), insname=session.get('insname'), discname=session.get('discname'), url=url, ip=ip, current_time=datetime.utcnow())
