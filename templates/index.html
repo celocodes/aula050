@@ -5,12 +5,7 @@
 
 {% block page_content %}
 <div class="page-header">
-    <h1>Olá, {% if name %}{{ name }}{% else %}Doutor{% endif %}!</h1>
-    <h3>A sua Instituição de ensino é {% if name %}{{ name }}{% else %}Uniesquina{% endif %}</h3>
-    <h3>Está cursando a disciplina de {% if name %}{{ name }}{% else %}ADM{% endif %}</h3>
-    <br>
-    <h4>O IP do computador remoto é: {{ip}}</h4>
-    <h4>O host da aplicação é: {{url}}</h4> 
+    <h1>Hello, {% if name %}{{ name }}{% else %}Stranger{% endif %}!</h1>
 </div>
 {{ wtf.quick_form(form) }}
 {% endblock %}
