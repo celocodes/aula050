@@ -3,7 +3,7 @@ from flask import Flask, render_template, request, session, redirect, url_for, f
 from flask_bootstrap import Bootstrap
 from flask_moment import Moment
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField
+from wtforms import StringField, SelectField, SubmitField
 from wtforms.validators import DataRequired
 
 app = Flask(__name__)
@@ -41,10 +41,10 @@ def index():
         old_name = session.get('name')
         old_lastname = session.get('lastname')
         old_insname = session.get('insname')
-        #old_discname = session.get('discname')
+        old_discname = session.get('discname')
         session['name'] = form.name.data
         session['lastname'] = form.lastname.data
         session['insname'] = form.insname.data
-        #session['discname'] = form.discname.data
+        session['discname'] = form.discname.data
         return redirect(url_for('index'))
-    return render_template('index.html', form=form, name=session.get('name'),lastname=session.get('lastname'), insname=session.get('insname'), url=url, ip=ip, current_time=datetime.utcnow())
+    return render_template('index.html', form=form, name=session.get('name'), lastname=session.get('lastname'), insname=session.get('insname'), discname=session.get('discname'), url=url, ip=ip, current_time=datetime.utcnow())
