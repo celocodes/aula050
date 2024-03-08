@@ -16,8 +16,8 @@ moment = Moment(app)
 class NameForm(FlaskForm):
     name = StringField('Informe o seu nome:', validators=[DataRequired()])
     lastname = StringField('Informe o seu sobrenome:', validators=[DataRequired()])
-    insname = StringField('Informe a sua Insituição de ensino:', validators=[DataRequired()])
-    discname = StringField('Informe a sua disciplina:', validators=[DataRequired()])
+    insname = StringField('Informe a sua insituição de ensino:', validators=[DataRequired()])
+    discname = SelectField('Informe a sua disciplina:', choices=[('dsw', 'DSWA5'), ('dwb', 'DWBA4'), ('ges', 'Gestão de projetos')], validators=[DataRequired()])
     submit = SubmitField('Submit')
 
 
@@ -42,4 +42,4 @@ def index():
             flash('Looks like you have changed your name!')
         session['name'] = form.name.data
         return redirect(url_for('index'))
-    return render_template('index.html', form=form, name=session.get('name'), lastname=session.get('lastname'), insname=session.get('insname'), discname=session.get('discname'), url=url, ip=ip, current_time=datetime.utcnow())
+    return render_template('index.html', form=form, name=session.get('name'), url=url, ip=ip, current_time=datetime.utcnow())
